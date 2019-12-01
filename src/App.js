@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import Header from "./components/header";
+import Search from "./components/search";
+import Detail from "./components/detail";
+import Page1 from "./components/Page1";
+import Page2 from "./components/Page2";
+import "./App.css";
+import store from "./redux/store";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <Router>
+          <div className="App">
+            <Header title="Find any Country" />
+            <Switch>
+              <Route path="/" exact component={Search} />
+              <Route path="/detail/:code" component={Detail} />
+              <Route path="/user/:name/:age" component={Page1} />
+              <Route path="/page2" component={Page2} />
+            </Switch>
+          </div>
+        </Router>
+      </Provider>
+    );
+  }
 }
 
 export default App;
